@@ -46,8 +46,4 @@ interface Driver
     public function updateContent(string $campaignId, string $html, array $options = []);
 
     public function getApi();
-
-    public function getLastError();
-
-    public function lastActionSucceeded(): bool;
 }

@@ -29,7 +29,7 @@ class MailchimpDriver implements Driver
 
         $response = $this->client->post("lists/{$list->getId()}/members", $options);
 
-        if (! $this->lastActionSucceeded()) {
+        if (! $this->client->success()) {
             return false;
         }
 
@@ -51,7 +51,7 @@ class MailchimpDriver implements Driver
 
         $response = $this->client->put("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}", $options);
 
-        if (! $this->lastActionSucceeded()) {
+        if (! $this->client->success()) {
             return false;
         }
 
@@ -117,7 +117,7 @@ class MailchimpDriver implements Driver
             'status' => 'unsubscribed',
         ]);
 
-        if (! $this->lastActionSucceeded()) {
+        if (! $this->client->success()) {
             return false;
         }
 
@@ -204,7 +204,7 @@ class MailchimpDriver implements Driver
 
         $response = $this->client->post('campaigns', $options);
 
-        if (! $this->lastActionSucceeded()) {
+        if (! $this->client->success()) {
             return false;
         }
 
@@ -227,7 +227,7 @@ class MailchimpDriver implements Driver
 
         $response = $this->client->put("campaigns/{$campaignId}/content", $options);
 
-        if (! $this->lastActionSucceeded()) {
+        if (! $this->client->success()) {
             return false;
         }
 
@@ -237,19 +237,6 @@ class MailchimpDriver implements Driver
     public function getApi(): MailChimp
     {
         return $this->client;
-    }
-
-    /**
-     * @return array|false
-     */
-    public function getLastError()
-    {
-        return $this->client->getLastError();
-    }
-
-    public function lastActionSucceeded(): bool
-    {
-        return $this->client->success();
     }
 
     protected function getSubscriberHash(string $email): string
