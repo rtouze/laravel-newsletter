@@ -4,6 +4,7 @@ namespace Spatie\Newsletter;
 
 use DrewM\MailChimp\MailChimp;
 use Illuminate\Support\ServiceProvider;
+use Spatie\Newsletter\Drivers\MailchimpDriver;
 
 class NewsletterServiceProvider extends ServiceProvider
 {
@@ -21,18 +22,17 @@ class NewsletterServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(Newsletter::class, function () {
-            $driver = config('newsletter.driver', 'api');
+            $driver = config('newsletter.driver', null);
             if (is_null($driver) || $driver === 'log') {
                 return new NullDriver($driver === 'log');
             }
 
-            $mailChimp = new Mailchimp(config('newsletter.apiKey'));
+            switch ($driver) {
+                case 'mailchimp':
+                    $driver = new MailchimpDriver(config('newsletter.mailchimp'));
+            }
 
-            $mailChimp->verify_ssl = config('newsletter.ssl', true);
-
-            $configuredLists = NewsletterListCollection::createFromConfig(config('newsletter'));
-
-            return new Newsletter($mailChimp, $configuredLists);
+            return new Newsletter($driver);
         });
 
         $this->app->alias(Newsletter::class, 'newsletter');

@@ -5,35 +5,38 @@ namespace Spatie\Newsletter\Test;
 use Mockery;
 use DrewM\MailChimp\MailChimp;
 use PHPUnit\Framework\TestCase;
+use Spatie\Newsletter\Drivers\MailchimpDriver;
 use Spatie\Newsletter\Newsletter;
 use Spatie\Newsletter\NewsletterListCollection;
 
 class NewsletterTest extends TestCase
 {
+    protected $driver;
+
     /** @var Mockery\Mock */
-    protected $mailChimpApi;
+    protected $client;
 
     /** @var \Spatie\Newsletter\Newsletter */
     protected $newsletter;
 
     public function setUp() : void
     {
-        $this->mailChimpApi = Mockery::mock(MailChimp::class);
+        $this->client = Mockery::mock(MailChimp::class);
 
-        $this->mailChimpApi->shouldReceive('success')->andReturn(true);
+        $this->driver = new MailchimpDriver([
+            'apiKey' => 'test-ApiKey',
+            'ssl' => false,
+            'lists' => [
+                'list1' => ['id' => 123],
+                'list2' => ['id' => 456],
+            ],
+            'defaultListName' => 'list1',
+        ]);
 
-        $newsletterLists = NewsletterListCollection::createFromConfig(
-            [
-                'lists' => [
-                    'list1' => ['id' => 123],
-                    'list2' => ['id' => 456],
-                ],
-                'defaultListName' => 'list1',
-            ]
+        $this->driver->client = $this->client;
+        $this->client->shouldReceive('success')->andReturn(true);
 
-        );
-
-        $this->newsletter = new Newsletter($this->mailChimpApi, $newsletterLists);
+        $this->newsletter = new Newsletter($this->driver);
     }
 
     public function tearDown() : void
@@ -54,7 +57,7 @@ class NewsletterTest extends TestCase
 
         $url = 'lists/123/members';
 
-        $this->mailChimpApi->shouldReceive('post')->withArgs([
+        $this->client->shouldReceive('post')->withArgs([
             $url,
             [
                 'email_address' => $email,
@@ -73,7 +76,7 @@ class NewsletterTest extends TestCase
 
         $url = 'lists/123/members';
 
-        $this->mailChimpApi->shouldReceive('post')->withArgs([
+        $this->client->shouldReceive('post')->withArgs([
             $url,
             [
                 'email_address' => $email,
@@ -94,12 +97,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi->shouldReceive('put')->withArgs([
+        $this->client->shouldReceive('put')->withArgs([
             "{$url}/{$subscriberHash}",
             [
                 'email_address' => $email,
@@ -120,7 +123,7 @@ class NewsletterTest extends TestCase
 
         $url = 'lists/123/members';
 
-        $this->mailChimpApi->shouldReceive('post')
+        $this->client->shouldReceive('post')
             ->once()
             ->withArgs([
                 $url,
@@ -146,12 +149,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi->shouldReceive('put')
+        $this->client->shouldReceive('put')
             ->once()
             ->withArgs([
                 "{$url}/{$subscriberHash}",
@@ -173,7 +176,7 @@ class NewsletterTest extends TestCase
 
         $url = 'lists/456/members';
 
-        $this->mailChimpApi->shouldReceive('post')
+        $this->client->shouldReceive('post')
             ->once()
             ->withArgs([
                 $url,
@@ -196,12 +199,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi->shouldReceive('put')
+        $this->client->shouldReceive('put')
             ->once()
             ->withArgs([
                 "{$url}/{$subscriberHash}",
@@ -222,7 +225,7 @@ class NewsletterTest extends TestCase
 
         $url = 'lists/123/members';
 
-        $this->mailChimpApi->shouldReceive('post')
+        $this->client->shouldReceive('post')
             ->once()
             ->withArgs([
                 $url,
@@ -245,12 +248,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi->shouldReceive('put')
+        $this->client->shouldReceive('put')
             ->once()
             ->withArgs([
                 "{$url}/{$subscriberHash}",
@@ -274,12 +277,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi
+        $this->client
             ->shouldReceive('patch')
             ->once()
             ->withArgs([
@@ -299,12 +302,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi
+        $this->client
             ->shouldReceive('patch')
             ->once()
             ->withArgs([
@@ -324,12 +327,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi
+        $this->client
             ->shouldReceive('patch')
             ->once()
             ->withArgs([
@@ -349,12 +352,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi
+        $this->client
             ->shouldReceive('delete')
             ->once()
             ->withArgs(["lists/123/members/{$subscriberHash}"]);
@@ -369,12 +372,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi
+        $this->client
             ->shouldReceive('delete')
             ->once()
             ->withArgs(["lists/456/members/{$subscriberHash}"]);
@@ -387,13 +390,13 @@ class NewsletterTest extends TestCase
     {
         $api = $this->newsletter->getApi();
 
-        $this->assertSame($this->mailChimpApi, $api);
+        $this->assertSame($this->client, $api);
     }
 
     /** @test */
     public function it_can_get_the_list_members()
     {
-        $this->mailChimpApi
+        $this->client
             ->shouldReceive('get')
             ->once()
             ->withArgs(['lists/123/members', []]);
@@ -408,12 +411,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi
+        $this->client
             ->shouldReceive('get')
             ->once()
             ->withArgs(["lists/123/members/{$subscriberHash}"]);
@@ -428,12 +431,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi
+        $this->client
             ->shouldReceive('get')
             ->once()
             ->withArgs(["lists/123/members/{$subscriberHash}/activity"]);
@@ -448,12 +451,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi
+        $this->client
             ->shouldReceive('get')
             ->once()
             ->withArgs(["lists/456/members/{$subscriberHash}"]);
@@ -474,7 +477,7 @@ class NewsletterTest extends TestCase
 
         $campaignId = 'newCampaignId';
 
-        $this->mailChimpApi
+        $this->client
             ->shouldReceive('post')
             ->once()
             ->withArgs(
@@ -496,7 +499,7 @@ class NewsletterTest extends TestCase
             )
             ->andReturn(['id' => $campaignId]);
 
-        $this->mailChimpApi
+        $this->client
             ->shouldReceive('put')
             ->once()
             ->withArgs([
@@ -517,12 +520,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi
+        $this->client
             ->shouldReceive('get')
             ->once()
             ->withArgs(["lists/123/members/{$subscriberHash}/tags"])
@@ -540,12 +543,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi
+        $this->client
             ->shouldReceive('post')
             ->once()
             ->withArgs(["lists/123/members/{$subscriberHash}/tags", ['tags' => [['name' => 'tag-1', 'status' => 'active'], ['name' => 'tag-2', 'status' => 'active']]]])
@@ -563,12 +566,12 @@ class NewsletterTest extends TestCase
 
         $subscriberHash = 'abc123';
 
-        $this->mailChimpApi->shouldReceive('subscriberHash')
+        $this->client->shouldReceive('subscriberHash')
             ->once()
             ->withArgs([$email])
             ->andReturn($subscriberHash);
 
-        $this->mailChimpApi
+        $this->client
             ->shouldReceive('post')
             ->once()
             ->withArgs(["lists/123/members/{$subscriberHash}/tags", ['tags' => [['name' => 'tag-1', 'status' => 'inactive'], ['name' => 'tag-2', 'status' => 'inactive']]]])
