@@ -6,11 +6,9 @@ interface Driver
 {
     public function __construct(array $config);
 
-    public function subscribe(string $email, array $mergeFields = [], string $listName = '', array $options = []);
+    public function subscribe(string $email, array $options = [], string $listName = '');
 
-    public function subscribePending(string $email, array $mergeFields = [], string $listName = '', array $options = []);
-
-    public function subscribeOrUpdate(string $email, array $mergeFields = [], string $listName = '', array $options = []);
+    public function subscribeOrUpdate(string $email, array $options = [], string $listName = '');
 
     public function getMembers(string $listName = '', array $parameters = []);
 
@@ -27,23 +25,6 @@ interface Driver
     public function updateEmailAddress(string $currentEmailAddress, string $newEmailAddress, string $listName = '');
 
     public function delete(string $email, string $listName = '');
-
-    public function getTags(string $email, string $listName = '');
-
-    public function addTags(array $tags, string $email, string $listName = '');
-
-    public function removeTags(array $tags, string $email, string $listName = '');
-
-    public function createCampaign(
-        string $fromName,
-        string $replyTo,
-        string $subject,
-        string $html = '',
-        string $listName = '',
-        array $options = [],
-        array $contentOptions = []);
-
-    public function updateContent(string $campaignId, string $html, array $options = []);
 
     public function getApi();
 }

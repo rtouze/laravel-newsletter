@@ -76,6 +76,10 @@ class NewsletterTest extends TestCase
 
         $url = 'lists/123/members';
 
+        $options = [
+            'status' => 'pending'
+        ];
+
         $this->client->shouldReceive('post')->withArgs([
             $url,
             [
@@ -85,7 +89,7 @@ class NewsletterTest extends TestCase
             ],
         ]);
 
-        $this->newsletter->subscribePending($email);
+        $this->newsletter->subscribe($email, $options);
     }
 
     /** @test */
@@ -119,7 +123,11 @@ class NewsletterTest extends TestCase
     {
         $email = 'freek@spatie.be';
 
-        $mergeFields = ['FNAME' => 'Freek'];
+        $options = [
+            'merge_fields' => [
+                'FNAME' => 'Freek'
+            ]
+        ];
 
         $url = 'lists/123/members';
 
@@ -130,12 +138,12 @@ class NewsletterTest extends TestCase
                 [
                     'email_address' => $email,
                     'status' => 'subscribed',
-                    'merge_fields' => $mergeFields,
+                    'merge_fields' => $options['merge_fields'],
                     'email_type' => 'html',
                 ],
             ]);
 
-        $this->newsletter->subscribe($email, $mergeFields);
+        $this->newsletter->subscribe($email, $options);
     }
 
     /** @test */
@@ -143,7 +151,11 @@ class NewsletterTest extends TestCase
     {
         $email = 'freek@spatie.be';
 
-        $mergeFields = ['FNAME' => 'Freek'];
+        $options = [
+            'merge_fields' => [
+                'FNAME' => 'Freek'
+            ]
+        ];
 
         $url = 'lists/123/members';
 
@@ -161,12 +173,12 @@ class NewsletterTest extends TestCase
                 [
                     'email_address' => $email,
                     'status' => 'subscribed',
-                    'merge_fields' => $mergeFields,
+                    'merge_fields' => $options['merge_fields'],
                     'email_type' => 'html',
                 ],
             ]);
 
-        $this->newsletter->subscribeOrUpdate($email, $mergeFields);
+        $this->newsletter->subscribeOrUpdate($email, $options);
     }
 
     /** @test */
@@ -236,7 +248,7 @@ class NewsletterTest extends TestCase
                 ],
             ]);
 
-        $this->newsletter->subscribe($email, [], '', ['email_type' => 'text', 'status' => 'pending']);
+        $this->newsletter->subscribe($email, ['email_type' => 'text', 'status' => 'pending']);
     }
 
     /** @test */
@@ -264,7 +276,7 @@ class NewsletterTest extends TestCase
                 ],
             ]);
 
-        $this->newsletter->subscribeOrUpdate($email, [], '', ['email_type' => 'text', 'status' => 'pending']);
+        $this->newsletter->subscribeOrUpdate($email, ['email_type' => 'text', 'status' => 'pending']);
     }
 
     /** @test */
@@ -462,123 +474,5 @@ class NewsletterTest extends TestCase
             ->withArgs(["lists/456/members/{$subscriberHash}"]);
 
         $this->newsletter->getMember($email, 'list2');
-    }
-
-    /** @test */
-    public function it_can_create_a_campaign()
-    {
-        $fromName = 'Spatie';
-        $replyTo = 'info@spatie.be';
-        $subject = 'This is a subject';
-        $html = '<b>This is the content</b>';
-        $listName = 'list1';
-        $options = ['extraOption' => 'extraValue'];
-        $contentOptions = ['plain text' => 'this is the plain text content'];
-
-        $campaignId = 'newCampaignId';
-
-        $this->client
-            ->shouldReceive('post')
-            ->once()
-            ->withArgs(
-                [
-                    'campaigns',
-                    [
-                        'type' => 'regular',
-                        'recipients' => [
-                            'list_id' => 123,
-                        ],
-                        'settings' => [
-                            'subject_line' => $subject,
-                            'from_name' => $fromName,
-                            'reply_to' => $replyTo,
-                        ],
-                        'extraOption' => 'extraValue',
-                    ],
-                ]
-            )
-            ->andReturn(['id' => $campaignId]);
-
-        $this->client
-            ->shouldReceive('put')
-            ->once()
-            ->withArgs([
-                "campaigns/{$campaignId}/content",
-                [
-                    'html' => $html,
-                    'plain text' => 'this is the plain text content',
-                ],
-            ]);
-
-        $this->newsletter->createCampaign($fromName, $replyTo, $subject, $html, $listName, $options, $contentOptions);
-    }
-
-    /** @test */
-    public function it_can_get_member_tags()
-    {
-        $email = 'freek@spatie.be';
-
-        $subscriberHash = 'abc123';
-
-        $this->client->shouldReceive('subscriberHash')
-            ->once()
-            ->withArgs([$email])
-            ->andReturn($subscriberHash);
-
-        $this->client
-            ->shouldReceive('get')
-            ->once()
-            ->withArgs(["lists/123/members/{$subscriberHash}/tags"])
-            ->andReturn('all-the-member-tags');
-
-        $actual = $this->newsletter->getTags($email);
-
-        $this->assertSame('all-the-member-tags', $actual);
-    }
-
-    /** @test */
-    public function it_can_add_member_tags()
-    {
-        $email = 'freek@spatie.be';
-
-        $subscriberHash = 'abc123';
-
-        $this->client->shouldReceive('subscriberHash')
-            ->once()
-            ->withArgs([$email])
-            ->andReturn($subscriberHash);
-
-        $this->client
-            ->shouldReceive('post')
-            ->once()
-            ->withArgs(["lists/123/members/{$subscriberHash}/tags", ['tags' => [['name' => 'tag-1', 'status' => 'active'], ['name' => 'tag-2', 'status' => 'active']]]])
-            ->andReturn('the-post-response');
-
-        $actual = $this->newsletter->addTags(['tag-1', 'tag-2'], $email);
-
-        $this->assertSame('the-post-response', $actual);
-    }
-
-    /** @test */
-    public function it_can_remove_member_tags()
-    {
-        $email = 'freek@spatie.be';
-
-        $subscriberHash = 'abc123';
-
-        $this->client->shouldReceive('subscriberHash')
-            ->once()
-            ->withArgs([$email])
-            ->andReturn($subscriberHash);
-
-        $this->client
-            ->shouldReceive('post')
-            ->once()
-            ->withArgs(["lists/123/members/{$subscriberHash}/tags", ['tags' => [['name' => 'tag-1', 'status' => 'inactive'], ['name' => 'tag-2', 'status' => 'inactive']]]])
-            ->andReturn('the-post-response');
-
-        $actual = $this->newsletter->removeTags(['tag-1', 'tag-2'], $email);
-
-        $this->assertSame('the-post-response', $actual);
     }
 }

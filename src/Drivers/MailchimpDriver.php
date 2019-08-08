@@ -21,11 +21,11 @@ class MailchimpDriver implements Driver
     }
 
 
-    public function subscribe(string $email, array $mergeFields = [], string $listName = '', array $options = [])
+    public function subscribe(string $email, array $options = [], string $listName = '')
     {
         $list = $this->lists->findByName($listName);
 
-        $options = $this->getSubscriptionOptions($email, $mergeFields, $options);
+        $options = $this->getSubscriptionOptions($email, $options);
 
         $response = $this->client->post("lists/{$list->getId()}/members", $options);
 
@@ -36,18 +36,12 @@ class MailchimpDriver implements Driver
         return $response;
     }
 
-    public function subscribePending(string $email, array $mergeFields = [], string $listName = '', array $options = [])
-    {
-        $options = array_merge($options, ['status' => 'pending']);
 
-        return $this->subscribe($email, $mergeFields, $listName, $options);
-    }
-
-    public function subscribeOrUpdate(string $email, array $mergeFields = [], string $listName = '', array $options = [])
+    public function subscribeOrUpdate(string $email, array $options = [], string $listName = '')
     {
         $list = $this->lists->findByName($listName);
 
-        $options = $this->getSubscriptionOptions($email, $mergeFields, $options);
+        $options = $this->getSubscriptionOptions($email, $options);
 
         $response = $this->client->put("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}", $options);
 
@@ -144,96 +138,6 @@ class MailchimpDriver implements Driver
         return $response;
     }
 
-    public function getTags(string $email, string $listName = '')
-    {
-        $list = $this->lists->findByName($listName);
-
-        return $this->client->get("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}/tags");
-    }
-
-    public function addTags(array $tags, string $email, string $listName = '')
-    {
-        $list = $this->lists->findByName($listName);
-
-        $payload = collect($tags)->map(function ($tag) {
-            return ['name' => $tag, 'status' => 'active'];
-        })->toArray();
-
-        return $this->client->post("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}/tags", [
-            'tags' => $payload,
-        ]);
-    }
-
-    public function removeTags(array $tags, string $email, string $listName = '')
-    {
-        $list = $this->lists->findByName($listName);
-
-        $payload = collect($tags)->map(function ($tag) {
-            return ['name' => $tag, 'status' => 'inactive'];
-        })->toArray();
-
-        return $this->client->post("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}/tags", [
-            'tags' => $payload,
-        ]);
-    }
-
-    public function createCampaign(
-        string $fromName,
-        string $replyTo,
-        string $subject,
-        string $html = '',
-        string $listName = '',
-        array $options = [],
-        array $contentOptions = [])
-    {
-        $list = $this->lists->findByName($listName);
-
-        $defaultOptions = [
-            'type' => 'regular',
-            'recipients' => [
-                'list_id' => $list->getId(),
-            ],
-            'settings' => [
-                'subject_line' => $subject,
-                'from_name' => $fromName,
-                'reply_to' => $replyTo,
-            ],
-        ];
-
-        $options = array_merge($defaultOptions, $options);
-
-        $response = $this->client->post('campaigns', $options);
-
-        if (! $this->client->success()) {
-            return false;
-        }
-
-        if ($html === '') {
-            return $response;
-        }
-
-        if (! $this->updateContent($response['id'], $html, $contentOptions)) {
-            return false;
-        }
-
-        return $response;
-    }
-
-    public function updateContent(string $campaignId, string $html, array $options = [])
-    {
-        $defaultOptions = compact('html');
-
-        $options = array_merge($defaultOptions, $options);
-
-        $response = $this->client->put("campaigns/{$campaignId}/content", $options);
-
-        if (! $this->client->success()) {
-            return false;
-        }
-
-        return $response;
-    }
-
     public function getApi(): MailChimp
     {
         return $this->client;
@@ -244,17 +148,13 @@ class MailchimpDriver implements Driver
         return $this->client->subscriberHash($email);
     }
 
-    protected function getSubscriptionOptions(string $email, array $mergeFields, array $options): array
+    protected function getSubscriptionOptions(string $email, array $options): array
     {
         $defaultOptions = [
             'email_address' => $email,
             'status' => 'subscribed',
             'email_type' => 'html',
         ];
-
-        if (count($mergeFields)) {
-            $defaultOptions['merge_fields'] = $mergeFields;
-        }
 
         $options = array_merge($defaultOptions, $options);
 
