@@ -66,13 +66,6 @@ class MailchimpDriver implements Driver
         return $this->client->get("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}");
     }
 
-    public function getMemberActivity(string $email, string $listName = '')
-    {
-        $list = $this->lists->findByName($listName);
-
-        return $this->client->get("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}/activity");
-    }
-
     public function hasMember(string $email, string $listName = ''): bool
     {
         $response = $this->getMember($email, $listName);
@@ -118,16 +111,6 @@ class MailchimpDriver implements Driver
         return $response;
     }
 
-    public function updateEmailAddress(string $currentEmailAddress, string $newEmailAddress, string $listName = '')
-    {
-        $list = $this->lists->findByName($listName);
-
-        $response = $this->client->patch("lists/{$list->getId()}/members/{$this->getSubscriberHash($currentEmailAddress)}", [
-            'email_address' => $newEmailAddress,
-        ]);
-
-        return $response;
-    }
 
     public function delete(string $email, string $listName = '')
     {
