@@ -2,11 +2,6 @@
 
 return [
 
-    /*
-     * The driver to use to interact with MailChimp API.
-     * You may use "log" or "null" to prevent calling the
-     * API directly from your environment.
-     */
     'driver' => env('MAIL_NEWSLETTER_DRIVER', 'null'),
 
 
