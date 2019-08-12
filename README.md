@@ -1,6 +1,6 @@
 # Manage newsletters in Laravel
 
-This package is a fork from spatie/laravel-newsletter. It provides an easy way to integrate different email services with Laravel 5. Here are some examples of what you can do with the package:
+This package is a fork from spatie/laravel-newsletter. It provides an easy way to integrate different email services with Laravel 5.
 
 There is 1 driver available:
 
@@ -189,7 +189,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Support Spatie
 
-This package is a form spatie/laravel-newsletter.
+This package is a fork form spatie/laravel-newsletter.
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all their open source projects [on their website](https://spatie.be/opensource).
 
