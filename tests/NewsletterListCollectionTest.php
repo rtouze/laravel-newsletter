@@ -66,6 +66,21 @@ class NewsletterListCollectionTest extends TestCase
     }
 
     /** @test */
+    public function it_will_throw_an_exception_when_there_are_no_lists_defined()
+    {
+        $this->expectException(InvalidNewsletterList::class);
+
+        NewsletterListCollection::createFromConfig(
+            [
+                'lists' => [
+                ],
+
+                'defaultListName' => 'list1',
+            ]
+        );
+    }
+
+    /** @test */
     public function it_will_throw_an_exception_when_trying_to_find_a_list_that_does_not_exist()
     {
         $this->expectException(InvalidNewsletterList::class);

@@ -14,6 +14,11 @@ class NewsletterListCollection extends Collection
     {
         $collection = new static();
 
+        if (!count($config['lists']))
+        {
+            throw InvalidNewsletterList::noListsDefined();
+        }
+
         foreach ($config['lists'] as $name => $listProperties) {
             $collection->push(new NewsletterList($name, $listProperties));
         }
