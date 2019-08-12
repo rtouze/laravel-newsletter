@@ -2,7 +2,7 @@
 
 namespace Spatie\Newsletter\Test;
 
-use Spatie\Newsletter\NullDriver;
+use Spatie\Newsletter\Drivers\NullDriver;
 use Illuminate\Support\Facades\Log;
 
 class NullDriverTest extends \PHPUnit\Framework\TestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Newsletter;
+namespace Spatie\Newsletter\Drivers;
 
 use Illuminate\Support\Facades\Log;
 

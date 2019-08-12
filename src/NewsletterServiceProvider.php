@@ -2,9 +2,9 @@
 
 namespace Spatie\Newsletter;
 
-use DrewM\MailChimp\MailChimp;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Newsletter\Drivers\MailchimpDriver;
+use Spatie\Newsletter\Drivers\NullDriver;
 
 class NewsletterServiceProvider extends ServiceProvider
 {
@@ -30,6 +30,7 @@ class NewsletterServiceProvider extends ServiceProvider
             switch ($driver) {
                 case 'mailchimp':
                     $driver = new MailchimpDriver(config('newsletter.mailchimp'));
+                    break;
             }
 
             return new Newsletter($driver);
