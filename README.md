@@ -1,8 +1,8 @@
 # Manage newsletters in Laravel
 
-[![Build Status](https://img.shields.io/travis/DansMaCulotte/laravel-newsleter/master.svg?style=flat-square)](https://travis-ci.org/dansmaculotte/laravel-newsleter)
-[![Quality Score](https://img.shields.io/scrutinizer/g/DansMaCulotte/laravel-newsleter.svg?style=flat-square)](https://scrutinizer-ci.com/g/dansmaculotte/laravel-newsleter)
-[![Code Coverage](https://img.shields.io/coveralls/github/DansMaCulotte/laravel-newsleter.svg?style=flat-square)](https://coveralls.io/github/dansmaculotte/laravel-newsleter)
+[![Build Status](https://img.shields.io/travis/DansMaCulotte/laravel-newsletter/master.svg?style=flat-square)](https://travis-ci.org/dansmaculotte/laravel-newsletter)
+[![Quality Score](https://img.shields.io/scrutinizer/g/DansMaCulotte/laravel-newsletter.svg?style=flat-square)](https://scrutinizer-ci.com/g/dansmaculotte/laravel-newsletter)
+[![Code Coverage](https://img.shields.io/coveralls/github/DansMaCulotte/laravel-newslteter.svg?style=flat-square)](https://coveralls.io/github/dansmaculotte/laravel-newsletter)
 
 This package is a fork from spatie/laravel-newsletter. It provides an easy way to integrate different email services with Laravel 5.
 
