@@ -279,33 +279,6 @@ class NewsletterTest extends TestCase
         $this->newsletter->subscribeOrUpdate($email, ['email_type' => 'text', 'status' => 'pending']);
     }
 
-    /** @test */
-    public function it_can_change_the_email_address_of_a_subscriber()
-    {
-        $email = 'freek@spatie.be';
-        $newEmail = 'phreak@spatie.be';
-
-        $url = 'lists/123/members';
-
-        $subscriberHash = 'abc123';
-
-        $this->client->shouldReceive('subscriberHash')
-            ->once()
-            ->withArgs([$email])
-            ->andReturn($subscriberHash);
-
-        $this->client
-            ->shouldReceive('patch')
-            ->once()
-            ->withArgs([
-                "{$url}/{$subscriberHash}",
-                [
-                    'email_address' => $newEmail,
-                ],
-            ]);
-
-        $this->newsletter->updateEmailAddress($email, $newEmail);
-    }
 
     /** @test */
     public function it_can_unsubscribe_someone()
@@ -436,25 +409,6 @@ class NewsletterTest extends TestCase
         $this->newsletter->getMember($email);
     }
 
-    /** @test */
-    public function it_can_get_the_member_activity()
-    {
-        $email = 'freek@spatie.be';
-
-        $subscriberHash = 'abc123';
-
-        $this->client->shouldReceive('subscriberHash')
-            ->once()
-            ->withArgs([$email])
-            ->andReturn($subscriberHash);
-
-        $this->client
-            ->shouldReceive('get')
-            ->once()
-            ->withArgs(["lists/123/members/{$subscriberHash}/activity"]);
-
-        $this->newsletter->getMemberActivity($email);
-    }
 
     /** @test */
     public function it_can_get_the_member_from_a_specific_list()
