@@ -1,5 +1,7 @@
 # Manage newsletters in Laravel
 
+[![Latest Version](https://img.shields.io/packagist/v/DansMaCulotte/laravel-newsletter.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-newsletter)
+[![Total Downloads](https://img.shields.io/packagist/dt/DansMaCulotte/laravel-newsletter.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-newsletter)
 [![Build Status](https://img.shields.io/travis/DansMaCulotte/laravel-newsletter/master.svg?style=flat-square)](https://travis-ci.org/dansmaculotte/laravel-newsletter)
 [![Quality Score](https://img.shields.io/scrutinizer/g/DansMaCulotte/laravel-newsletter.svg?style=flat-square)](https://scrutinizer-ci.com/g/dansmaculotte/laravel-newsletter)
 [![Code Coverage](https://img.shields.io/coveralls/github/DansMaCulotte/laravel-newslteter.svg?style=flat-square)](https://coveralls.io/github/dansmaculotte/laravel-newsletter)
