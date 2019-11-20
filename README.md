@@ -1,10 +1,10 @@
 # Manage newsletters in Laravel
 
-[![Latest Version](https://img.shields.io/packagist/v/DansMaCulotte/laravel-newsletter.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-newsletter)
-[![Total Downloads](https://img.shields.io/packagist/dt/DansMaCulotte/laravel-newsletter.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-newsletter)
-[![Build Status](https://img.shields.io/travis/DansMaCulotte/laravel-newsletter/master.svg?style=flat-square)](https://travis-ci.org/dansmaculotte/laravel-newsletter)
-[![Quality Score](https://img.shields.io/scrutinizer/g/DansMaCulotte/laravel-newsletter.svg?style=flat-square)](https://scrutinizer-ci.com/g/dansmaculotte/laravel-newsletter)
-[![Code Coverage](https://img.shields.io/coveralls/github/DansMaCulotte/laravel-newslteter.svg?style=flat-square)](https://coveralls.io/github/dansmaculotte/laravel-newsletter)
+[![Latest Version](https://img.shields.io/packagist/v/dansmaculotte/laravel-newsletter.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-newsletter)
+[![Total Downloads](https://img.shields.io/packagist/dt/dansmaculotte/laravel-newsletter.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-newsletter)
+[![Build Status](https://img.shields.io/travis/dansmaculotte/laravel-newsletter/master.svg?style=flat-square)](https://travis-ci.org/dansmaculotte/laravel-newsletter)
+[![Quality Score](https://img.shields.io/scrutinizer/g/dansmaculotte/laravel-newsletter.svg?style=flat-square)](https://scrutinizer-ci.com/g/dansmaculotte/laravel-newsletter)
+[![Code Coverage](https://img.shields.io/coveralls/github/dansmaculotte/laravel-newslteter.svg?style=flat-square)](https://coveralls.io/github/dansmaculotte/laravel-newsletter)
 
 This package is a fork from spatie/laravel-newsletter. It provides an easy way to integrate different email services with Laravel 5.
 
@@ -27,7 +27,7 @@ The package will automatically register itself.
 To publish the config file to `config/newsletter.php` run:
 
 ```bash
-php artisan vendor:publish --provider="Spatie\Newsletter\NewsletterServiceProvider"
+php artisan vendor:publish --provider="DansMaCulotte\Newsletter\NewsletterServiceProvider"
 ```
 
 This will publish a file `newsletter.php` in your config directory with the following contents:
@@ -118,19 +118,19 @@ Newsletter::unsubscribe('the.luggage@discworld.com');
 
 You can pass options as the second argument:
 ```php
-Newsletter::subscribe('rincewind@discworld.com', ['FNAME'=>'Rince', 'LNAME'=>'Wind']);
+Newsletter::subscribe('rincewind@discworld.com', ['FNAME' => 'Rince', 'LNAME' => 'Wind']);
 ```
 
 You can subscribe someone to a specific list by using the third argument:
 ```php
-Newsletter::subscribe('rincewind@discworld.com', ['FNAME'=>'Rince', 'LNAME'=>'Wind'], 'subscribers');
+Newsletter::subscribe('rincewind@discworld.com', ['FNAME' => 'Rince', 'LNAME' => 'Wind'], 'subscribers');
 ```
 That third argument is the name of a list you configured in the config file.
 
 You can also subscribe and/or update someone. The person will be subscribed or updated if he/she is already subscribed:
 
  ```php
- Newsletter::subscribeOrUpdate('rincewind@discworld.com', ['FNAME'=>'Foo', 'lastname'=>'Bar']);
+ Newsletter::subscribeOrUpdate('rincewind@discworld.com', ['FNAME' => 'Foo', 'lastname' => 'Bar']);
  ```
  
 You can also unsubscribe someone from a specific list:
@@ -172,7 +172,7 @@ Newsletter::isSubscribed('lord.vetinari@discworld.com'); //returns a boolean
 
 ### Need something else?
 
-If you need more functionality you get an instance of the underlying [MailChimp Api](https://github.com/drewm/mailchimp-api) with:
+If you need more functionality you get an instance of the underlying Api with:
 
 ```php
 $api = Newsletter::getApi();
@@ -192,15 +192,6 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Support Spatie
-
-This package is a fork form spatie/laravel-newsletter.
-
-Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all their open source projects [on their website](https://spatie.be/opensource).
-
-Does your business depend on their contributions? Reach out and support them on [Patreon](https://www.patreon.com/spatie). 
-All pledges will be dedicated to allocating workforce on maintenance and new awesome stuff.
 
 ## License
 
