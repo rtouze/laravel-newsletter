@@ -1,6 +1,7 @@
 {
     "name": "dansmaculotte/laravel-newsletter",
     "description": "Manage newsletters in Laravel",
+    "version": "1.0.0",
     "keywords": [
         "laravel",
         "newsletter",
