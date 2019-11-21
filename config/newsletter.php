@@ -2,7 +2,7 @@
 
 return [
 
-    'driver' => env('MAIL_NEWSLETTER_DRIVER', 'null'),
+    'driver' => env('MAIL_NEWSLETTER_DRIVER', null),
 
     /*
      * The list to use when no list has been specified in a method.
