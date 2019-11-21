@@ -1,10 +1,11 @@
 <?php
 
-namespace Spatie\Newsletter;
+namespace DansMaCulotte\Newsletter;
 
+use DansMaCulotte\Newsletter\Drivers\MailjetDriver;
 use Illuminate\Support\ServiceProvider;
-use Spatie\Newsletter\Drivers\MailchimpDriver;
-use Spatie\Newsletter\Drivers\NullDriver;
+use DansMaCulotte\Newsletter\Drivers\MailchimpDriver;
+use DansMaCulotte\Newsletter\Drivers\NullDriver;
 
 class NewsletterServiceProvider extends ServiceProvider
 {
@@ -27,9 +28,17 @@ class NewsletterServiceProvider extends ServiceProvider
                 return new NullDriver($driver === 'log');
             }
 
+            $config = [
+                'defaultList' => config('newsletter.defaultList'),
+                'lists' => config('newsletter.lists'),
+            ];
+
             switch ($driver) {
                 case 'mailchimp':
-                    $driver = new MailchimpDriver(config('newsletter.mailchimp'));
+                    $driver = new MailchimpDriver(config('newsletter.mailchimp'), $config);
+                    break;
+                case 'mailjet':
+                    $driver = new MailjetDriver(config('newsletter.mailjet'), $config);
                     break;
             }
 

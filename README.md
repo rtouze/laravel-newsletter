@@ -6,11 +6,13 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/dansmaculotte/laravel-newsletter.svg?style=flat-square)](https://scrutinizer-ci.com/g/dansmaculotte/laravel-newsletter)
 [![Code Coverage](https://img.shields.io/coveralls/github/dansmaculotte/laravel-newslteter.svg?style=flat-square)](https://coveralls.io/github/dansmaculotte/laravel-newsletter)
 
-This package is a fork from spatie/laravel-newsletter. It provides an easy way to integrate different email services with Laravel 5.
+This package is a fork from spatie/laravel-newsletter. It provides an easy way to integrate different email services with Laravel.
 
-There is 1 driver available:
+There are 2 drivers available:
 
   - [Mailchimp](https://developer.mailchimp.com/documentation/mailchimp/)
+  - [Mailjet](https://dev.mailjet.com/guides/#about-the-mailjet-api)
+  
   
 There is also and `log` and `null` driver for testing and debug purpose.
 
@@ -19,7 +21,7 @@ There is also and `log` and `null` driver for testing and debug purpose.
 You can install this package via composer using:
 
 ```bash
-composer require spatie/laravel-newsletter
+composer require dansmaculotte/laravel-newsletter
 ```
 
 The package will automatically register itself.
@@ -30,55 +32,7 @@ To publish the config file to `config/newsletter.php` run:
 php artisan vendor:publish --provider="DansMaCulotte\Newsletter\NewsletterServiceProvider"
 ```
 
-This will publish a file `newsletter.php` in your config directory with the following contents:
-```php
-return [
-
-        'driver' => env('MAIL_NEWSLETTER_DRIVER', 'null'),
-    
-        'mailchimp' => [
-            /*
-             * The API key of a MailChimp account. You can find yours at
-             * https://us10.admin.mailchimp.com/account/api-key-popup/.
-             */
-            'apiKey' => env('MAILCHIMP_APIKEY'),
-    
-            /*
-             * The listName to use when no listName has been specified in a method.
-             */
-            'defaultListName' => 'subscribers',
-    
-            /*
-             * Here you can define properties of the lists.
-             */
-            'lists' => [
-    
-                /*
-                 * This key is used to identify this list. It can be used
-                 * as the listName parameter provided in the various methods.
-                 *
-                 * You can set it to any string you want and you can add
-                 * as many lists as you want.
-                 */
-                'subscribers' => [
-    
-                    /*
-                     * A MailChimp list id. Check the MailChimp docs if you don't know
-                     * how to get this value:
-                     * http://kb.mailchimp.com/lists/managing-subscribers/find-your-list-id.
-                     */
-                    'id' => env('MAILCHIMP_LIST_ID'),
-                ],
-            ],
-    
-            /*
-            * If you're having trouble with https connections, set this to false.
-            */
-            'ssl' => true,
-        ],
-];
-```
-
+This will publish a file `newsletter.php` in your config directory.
 
 Finally, install the email service package needed:
 
@@ -88,11 +42,15 @@ Finally, install the email service package needed:
 composer require drewm/mailchimp-api
 ```
 
+- Mailjet
+
+```bash
+composer require mailjet/mailjet-apiv3-php
+```
+
 ## Usage
 
 Configure your mail template driver and credentials in `config/newsletter.php`.
-
-## Usage
 
 After you've installed the package and filled in the values in the config-file working with this package will be a breeze. All the following examples use the facade. Don't forget to import it at the top of your file.
 

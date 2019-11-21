@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Newsletter\Exceptions;
+namespace DansMaCulotte\Newsletter\Exceptions;
 
 use Exception;
 
@@ -25,12 +25,12 @@ class InvalidNewsletterList extends Exception
     }
 
     /**
-     * @param $defaultListName
+     * @param $defaultList
      *
      * @return static
      */
-    public static function defaultListDoesNotExist($defaultListName)
+    public static function defaultListDoesNotExist($defaultList)
     {
-        return new static("Could not find a default list named `{$defaultListName}`.");
+        return new static("Could not find a default list named `{$defaultList}`.");
     }
 }

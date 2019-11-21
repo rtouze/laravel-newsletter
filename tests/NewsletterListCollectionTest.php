@@ -1,11 +1,11 @@
 <?php
 
-namespace Spatie\Newsletter\Test;
+namespace DansMaCulotte\Newsletter\Test;
 
 use PHPUnit\Framework\TestCase;
-use Spatie\Newsletter\NewsletterList;
-use Spatie\Newsletter\NewsletterListCollection;
-use Spatie\Newsletter\Exceptions\InvalidNewsletterList;
+use DansMaCulotte\Newsletter\NewsletterList;
+use DansMaCulotte\Newsletter\NewsletterListCollection;
+use DansMaCulotte\Newsletter\Exceptions\InvalidNewsletterList;
 
 class NewsletterListCollectionTest extends TestCase
 {
@@ -22,7 +22,7 @@ class NewsletterListCollectionTest extends TestCase
                     'list2' => ['id' => 2],
                     'list3' => ['id' => 3],
                 ],
-                'defaultListName' => 'list3',
+                'defaultList' => 'list3',
             ]
         );
     }
@@ -56,7 +56,7 @@ class NewsletterListCollectionTest extends TestCase
                     'list1' => ['id' => 'list1'],
                 ],
 
-                'defaultListName' => 'list2',
+                'defaultList' => 'list2',
             ]
         );
 
@@ -75,7 +75,7 @@ class NewsletterListCollectionTest extends TestCase
                 'lists' => [
                 ],
 
-                'defaultListName' => 'list1',
+                'defaultList' => 'list1',
             ]
         );
     }

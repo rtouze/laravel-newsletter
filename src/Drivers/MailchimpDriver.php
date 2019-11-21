@@ -1,28 +1,30 @@
 <?php
 
-namespace Spatie\Newsletter\Drivers;
+namespace DansMaCulotte\Newsletter\Drivers;
 
 use DrewM\MailChimp\MailChimp;
-use Spatie\Newsletter\Exceptions\ApiError;
-use Spatie\Newsletter\NewsletterListCollection;
+use Exception;
+use DansMaCulotte\Newsletter\Exceptions\ApiError;
+use DansMaCulotte\Newsletter\Exceptions\InvalidNewsletterList;
+use DansMaCulotte\Newsletter\NewsletterListCollection;
 
 class MailchimpDriver implements Driver
 {
-    /** @var \DrewM\MailChimp\MailChimp */
+    /** @var MailChimp */
     public $client;
 
-    /** @var \Spatie\Newsletter\NewsletterListCollection */
+    /** @var NewsletterListCollection */
     public $lists;
 
     /**
      * MailchimpDriver constructor.
+     * @param array $credentials
      * @param array $config
-     * @throws \Exception
+     * @throws InvalidNewsletterList
      */
-    public function __construct(array $config)
+    public function __construct(array $credentials, array $config)
     {
-        $this->client = new Mailchimp($config['apiKey']);
-        $this->client->verify_ssl = $config['ssl'];
+        $this->client = new Mailchimp($credentials['apiKey']);
         $this->lists = NewsletterListCollection::createFromConfig($config);
     }
 
@@ -33,6 +35,7 @@ class MailchimpDriver implements Driver
      * @param string $listName
      * @return array|false
      * @throws ApiError
+     * @throws InvalidNewsletterList
      */
     public function subscribe(string $email, array $options = [], string $listName = '')
     {
@@ -56,6 +59,7 @@ class MailchimpDriver implements Driver
      * @param string $listName
      * @return array|bool|false
      * @throws ApiError
+     * @throws InvalidNewsletterList
      */
     public function subscribeOrUpdate(string $email, array $options = [], string $listName = '')
     {
@@ -76,6 +80,7 @@ class MailchimpDriver implements Driver
      * @param string $listName
      * @param array $parameters
      * @return array|false
+     * @throws InvalidNewsletterList
      */
     public function getMembers(string $listName = '', array $parameters = [])
     {
@@ -88,6 +93,7 @@ class MailchimpDriver implements Driver
      * @param string $email
      * @param string $listName
      * @return array|false
+     * @throws InvalidNewsletterList
      */
     public function getMember(string $email, string $listName = '')
     {
@@ -100,6 +106,7 @@ class MailchimpDriver implements Driver
      * @param string $email
      * @param string $listName
      * @return bool
+     * @throws InvalidNewsletterList
      */
     public function hasMember(string $email, string $listName = ''): bool
     {
@@ -120,6 +127,7 @@ class MailchimpDriver implements Driver
      * @param string $email
      * @param string $listName
      * @return bool
+     * @throws InvalidNewsletterList
      */
     public function isSubscribed(string $email, string $listName = ''): bool
     {
@@ -141,6 +149,7 @@ class MailchimpDriver implements Driver
      * @param string $listName
      * @return array|false
      * @throws ApiError
+     * @throws InvalidNewsletterList
      */
     public function unsubscribe(string $email, string $listName = '')
     {
@@ -162,6 +171,7 @@ class MailchimpDriver implements Driver
      * @param string $email
      * @param string $listName
      * @return array|false
+     * @throws InvalidNewsletterList
      */
     public function delete(string $email, string $listName = '')
     {

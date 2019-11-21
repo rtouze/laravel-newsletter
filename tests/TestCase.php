@@ -1,8 +1,9 @@
 <?php
-namespace Spatie\Newsletter\Test;
+
+namespace DansMaCulotte\Newsletter\Test;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\Newsletter\NewsletterServiceProvider;
+use DansMaCulotte\Newsletter\NewsletterServiceProvider;
 
 class TestCase extends Orchestra
 {

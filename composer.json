@@ -31,6 +31,7 @@
         "illuminate/support": "^5.8 || ^6.0"
     },
     "require-dev": {
+        "mailjet/mailjet-apiv3-php": "^1.4",
         "drewm/mailchimp-api": "^2.4",
         "orchestra/testbench": "^4.3",
         "phpunit/phpunit" : "^8.0",
@@ -52,7 +53,8 @@
         "format": "@php vendor/bin/php-cs-fixer fix --config .php_cs.php"
     },
     "suggest": {
-        "drewm/mailchimp-api": "Required for using laravel-newsletter via Mailchimp"
+        "drewm/mailchimp-api": "Required for using laravel-newsletter via Mailchimp",
+        "mailjet/mailjet-apiv3-php": "Required for using laravel-newsletter via Mailjet"
     },
     "extra": {
         "laravel": {

@@ -1,13 +1,14 @@
 <?php
 
-namespace Spatie\Newsletter;
+namespace DansMaCulotte\Newsletter;
 
-use Spatie\Newsletter\Drivers\Driver;
+use DansMaCulotte\Newsletter\Drivers\Driver;
 
 class Newsletter
 {
     /** @var Driver|null */
     public $driver = null;
+
     /**
      * MailTemplate constructor.
      * @param Driver $driver

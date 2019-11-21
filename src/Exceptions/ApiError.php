@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\Newsletter\Exceptions;
+namespace DansMaCulotte\Newsletter\Exceptions;
 
 use Exception;
 use Throwable;
 /**
  * Class ApiError
- * @package Spatie\Newsletter\Exceptions;
+ * @package DansMaCulotte\Newsletter\Exceptions;
  */
 class ApiError extends Exception
 {

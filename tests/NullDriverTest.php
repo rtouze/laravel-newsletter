@@ -1,8 +1,8 @@
 <?php
 
-namespace Spatie\Newsletter\Test;
+namespace DansMaCulotte\Newsletter\Test;
 
-use Spatie\Newsletter\Drivers\NullDriver;
+use DansMaCulotte\Newsletter\Drivers\NullDriver;
 use Illuminate\Support\Facades\Log;
 
 class NullDriverTest extends \PHPUnit\Framework\TestCase
@@ -36,7 +36,7 @@ class NullDriverTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($subject->whatever());
         $this->assertNull($subject->addTags('jason@testing.com', ['tags']));
 
-        $log->shouldHaveReceived('debug', ['Called Spatie Newsletter facade method: whatever with:', []]);
-        $log->shouldHaveReceived('debug', ['Called Spatie Newsletter facade method: addTags with:', ['jason@testing.com', ['tags']]]);
+        $log->shouldHaveReceived('debug', ['Called Newsletter facade method: whatever with:', []]);
+        $log->shouldHaveReceived('debug', ['Called Newsletter facade method: addTags with:', ['jason@testing.com', ['tags']]]);
     }
 }

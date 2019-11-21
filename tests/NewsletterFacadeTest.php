@@ -1,10 +1,11 @@
 <?php
 
-namespace Spatie\Newsletter\Test;
+namespace DansMaCulotte\Newsletter\Test;
 
-use Spatie\Newsletter\Drivers\MailchimpDriver;
-use Spatie\Newsletter\Drivers\NullDriver;
-use Spatie\Newsletter\Newsletter;
+use DansMaCulotte\Newsletter\Drivers\MailchimpDriver;
+use DansMaCulotte\Newsletter\Drivers\MailjetDriver;
+use DansMaCulotte\Newsletter\Drivers\NullDriver;
+use DansMaCulotte\Newsletter\Newsletter;
 
 class NewsletterFacadeTest extends TestCase
 {
@@ -24,6 +25,18 @@ class NewsletterFacadeTest extends TestCase
         $newsletter = $this->app[Newsletter::class];
         $this->assertInstanceOf(Newsletter::class, $newsletter);
         $this->assertInstanceOf(MailchimpDriver::class, $newsletter->driver);
+    }
+
+    /** @test */
+    public function should_instantiate_facade_with_mailjet_driver()
+    {
+        config()->set('newsletter.driver', 'mailjet');
+        config()->set('newsletter.mailjet.key', 'mailjet-keytest');
+        config()->set('newsletter.mailjet.secret', 'mailjet-secrettest');
+
+        $newsletter = $this->app[Newsletter::class];
+        $this->assertInstanceOf(Newsletter::class, $newsletter);
+        $this->assertInstanceOf(MailjetDriver::class, $newsletter->driver);
     }
 
 }

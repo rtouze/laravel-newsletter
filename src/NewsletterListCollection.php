@@ -1,14 +1,14 @@
 <?php
 
-namespace Spatie\Newsletter;
+namespace DansMaCulotte\Newsletter;
 
 use Illuminate\Support\Collection;
-use Spatie\Newsletter\Exceptions\InvalidNewsletterList;
+use DansMaCulotte\Newsletter\Exceptions\InvalidNewsletterList;
 
 class NewsletterListCollection extends Collection
 {
     /** @var string */
-    public $defaultListName = '';
+    public $defaultList = '';
 
     public static function createFromConfig(array $config): self
     {
@@ -23,7 +23,7 @@ class NewsletterListCollection extends Collection
             $collection->push(new NewsletterList($name, $listProperties));
         }
 
-        $collection->defaultListName = $config['defaultListName'];
+        $collection->defaultList = $config['defaultList'];
 
         return $collection;
     }
@@ -46,11 +46,11 @@ class NewsletterListCollection extends Collection
     public function getDefault(): NewsletterList
     {
         foreach ($this->items as $newsletterList) {
-            if ($newsletterList->getName() === $this->defaultListName) {
+            if ($newsletterList->getName() === $this->defaultList) {
                 return $newsletterList;
             }
         }
 
-        throw InvalidNewsletterList::defaultListDoesNotExist($this->defaultListName);
+        throw InvalidNewsletterList::defaultListDoesNotExist($this->defaultList);
     }
 }

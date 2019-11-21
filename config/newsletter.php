@@ -4,6 +4,32 @@ return [
 
     'driver' => env('MAIL_NEWSLETTER_DRIVER', 'null'),
 
+    /*
+     * The list to use when no list has been specified in a method.
+     */
+    'defaultList' => 'subscribers',
+
+    /*
+     * Here you can define properties of the lists.
+     */
+    'lists' => [
+
+        /*
+         * This key is used to identify this list. It can be used
+         * as the list parameter provided in the various methods.
+         *
+         * You can set it to any string you want and you can add
+         * as many lists as you want.
+         */
+        'subscribers' => [
+
+            /*
+             * A list id.
+             */
+            'id' => env('MAIL_NEWSLETTER_LIST_ID'),
+        ],
+    ],
+
 
     'mailchimp' => [
         /*
@@ -13,37 +39,14 @@ return [
         'apiKey' => env('MAILCHIMP_APIKEY'),
 
         /*
-         * The listName to use when no listName has been specified in a method.
-         */
-        'defaultListName' => 'subscribers',
-
-        /*
-         * Here you can define properties of the lists.
-         */
-        'lists' => [
-
-            /*
-             * This key is used to identify this list. It can be used
-             * as the listName parameter provided in the various methods.
-             *
-             * You can set it to any string you want and you can add
-             * as many lists as you want.
-             */
-            'subscribers' => [
-
-                /*
-                 * A MailChimp list id. Check the MailChimp docs if you don't know
-                 * how to get this value:
-                 * http://kb.mailchimp.com/lists/managing-subscribers/find-your-list-id.
-                 */
-                'id' => env('MAILCHIMP_LIST_ID'),
-            ],
-        ],
-
-        /*
         * If you're having trouble with https connections, set this to false.
         */
         'ssl' => true,
     ],
+
+    'mailjet' => [
+        'key' => env('MJ_APIKEY_PUBLIC'),
+        'secret' => env('MJ_APIKEY_PRIVATE'),
+    ]
 
 ];

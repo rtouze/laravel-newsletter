@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\Newsletter\Drivers;
+namespace DansMaCulotte\Newsletter\Drivers;
 
 interface Driver
 {
-    public function __construct(array $config);
+    public function __construct(array $credentials, array $config);
 
     public function subscribe(string $email, array $options = [], string $listName = '');
 

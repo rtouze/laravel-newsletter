@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Newsletter\Drivers;
+namespace DansMaCulotte\Newsletter\Drivers;
 
 use Illuminate\Support\Facades\Log;
 
@@ -19,7 +19,7 @@ class NullDriver
     public function __call($name, $arguments)
     {
         if ($this->logCalls) {
-            Log::debug('Called Spatie Newsletter facade method: '.$name.' with:', $arguments);
+            Log::debug('Called Newsletter facade method: '.$name.' with:', $arguments);
         }
     }
 }

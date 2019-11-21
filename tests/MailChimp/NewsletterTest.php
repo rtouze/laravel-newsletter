@@ -1,13 +1,13 @@
 <?php
 
-namespace Spatie\Newsletter\Test;
+namespace DansMaCulotte\Newsletter\Test;
 
 use Mockery;
 use DrewM\MailChimp\MailChimp;
 use PHPUnit\Framework\TestCase;
-use Spatie\Newsletter\Drivers\MailchimpDriver;
-use Spatie\Newsletter\Exceptions\ApiError;
-use Spatie\Newsletter\Newsletter;
+use DansMaCulotte\Newsletter\Drivers\MailchimpDriver;
+use DansMaCulotte\Newsletter\Exceptions\ApiError;
+use DansMaCulotte\Newsletter\Newsletter;
 
 class NewsletterTest extends TestCase
 {
@@ -16,7 +16,7 @@ class NewsletterTest extends TestCase
     /** @var Mockery\Mock */
     protected $client;
 
-    /** @var \Spatie\Newsletter\Newsletter */
+    /** @var \DansMaCulotte\Newsletter\Newsletter */
     protected $newsletter;
 
     public function setUp() : void
@@ -26,11 +26,12 @@ class NewsletterTest extends TestCase
         $this->driver = new MailchimpDriver([
             'apiKey' => 'test-ApiKey',
             'ssl' => false,
+        ], [
             'lists' => [
                 'list1' => ['id' => 123],
                 'list2' => ['id' => 456],
             ],
-            'defaultListName' => 'list1',
+            'defaultList' => 'list1',
         ]);
 
         $this->driver->client = $this->client;

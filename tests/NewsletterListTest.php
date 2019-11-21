@@ -1,9 +1,9 @@
 <?php
 
-namespace Spatie\Newsletter\Test;
+namespace DansMaCulotte\Newsletter\Test;
 
 use PHPUnit\Framework\TestCase;
-use Spatie\Newsletter\NewsletterList;
+use DansMaCulotte\Newsletter\NewsletterList;
 
 class NewsletterListTest extends TestCase
 {
