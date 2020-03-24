@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Facade;
  * @see Newsletter
  * @method static subscribe(string $email, array $options = [], string $listName = '')
  * @method static subscribeOrUpdate(string $email, array $options = [], string $listName = '')
+ * @method static addMember(string $email, array $options = [], string $listName = '')
  * @method static getMembers(string $listName, array $parameters = [])
  * @method static getMember(string $email, string $listName = '')
  * @method static bool hasMember(string $email, string $listName = '')

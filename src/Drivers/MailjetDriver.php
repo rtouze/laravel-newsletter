@@ -37,8 +37,8 @@ class MailjetDriver implements Driver
         $list = $this->lists->findByName($listName);
 
         $body = [
-            'Email' => "${email}",
-            'Action' => "addnoforce",
+            'Email' => $email,
+            'Action' => 'addnoforce',
         ];
 
         $body = array_merge($body, $options);
@@ -66,6 +66,21 @@ class MailjetDriver implements Driver
     }
 
     /**
+     * @param string $email
+     * @param array $options
+     * @param string $listName
+     * @return Response
+     * @throws ApiError
+     * @throws InvalidNewsletterList
+     */
+    public function addMember(string $email, array $options = [], string $listName = '')
+    {
+        return $this->subscribe($email, array_merge([
+            'IsExcludedFromCampaigns' => true,
+        ], $options), $listName);
+    }
+
+    /**
      * @param string $listName
      * @param array $parameters
      * @return array
@@ -77,7 +92,7 @@ class MailjetDriver implements Driver
         $listId = $this->lists->findByName($listName)->getId();
 
         $body = [
-            'ContactsList' => "${listId}"
+            'ContactsList' => $listId
         ];
 
         $body = array_merge($body, $parameters);
@@ -114,6 +129,7 @@ class MailjetDriver implements Driver
      * @param string $listName
      * @return bool
      * @throws ApiError
+     * @throws InvalidNewsletterList
      */
     public function hasMember(string $email, string $listName = ''): bool
     {
@@ -128,7 +144,7 @@ class MailjetDriver implements Driver
         $contacts = $response->getData();
 
         foreach ($contacts as $contact) {
-            if ($contact['Email'] == $email) {
+            if ($contact['Email'] === $email) {
                 return true;
             }
         }
@@ -141,6 +157,7 @@ class MailjetDriver implements Driver
      * @param string $listName
      * @return bool
      * @throws ApiError
+     * @throws InvalidNewsletterList
      */
     public function isSubscribed(string $email, string $listName = ''): bool
     {
@@ -155,7 +172,7 @@ class MailjetDriver implements Driver
         $contactLists = $response->getData();
 
         foreach ($contactLists as $list) {
-            if ($list['ListID'] == $listId && $list['IsUnsub'] != true) {
+            if ($list['ListID'] === $listId && $list['IsUnsub'] !== true) {
                 return true;
             }
         }
@@ -168,14 +185,15 @@ class MailjetDriver implements Driver
      * @param string $listName
      * @return Response
      * @throws ApiError
+     * @throws InvalidNewsletterList
      */
     public function unsubscribe(string $email, string $listName = '')
     {
         $list = $this->lists->findByName($listName);
 
         $body = [
-            'Email' => "${email}",
-            'Action' => "unsub",
+            'Email' => $email,
+            'Action' => 'unsub',
         ];
 
         $response = $this->client->post(Resources::$ContactslistManagecontact, ['id' => $list->getId(), 'body' => $body]);
@@ -193,14 +211,15 @@ class MailjetDriver implements Driver
      * @param string $listName
      * @return Response
      * @throws ApiError
+     * @throws InvalidNewsletterList
      */
     public function delete(string $email, string $listName = '')
     {
         $list = $this->lists->findByName($listName);
 
         $body = [
-            'Email' => "${email}",
-            'Action' => "remove",
+            'Email' => $email,
+            'Action' => 'remove',
         ];
 
         $response = $this->client->post(Resources::$ContactslistManagecontact, [

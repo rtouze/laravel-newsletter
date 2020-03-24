@@ -10,6 +10,8 @@ interface Driver
 
     public function subscribeOrUpdate(string $email, array $options = [], string $listName = '');
 
+    public function addMember(string $email, array $options = [], string $listName = '');
+
     public function getMembers(string $listName = '', array $parameters = []);
 
     public function getMember(string $email, string $listName = '');

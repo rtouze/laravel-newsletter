@@ -68,6 +68,14 @@ use Newsletter;
 Newsletter::subscribe('rincewind@discworld.com');
 ```
 
+Add add email address to list but excluded from marketing emails
+
+```php
+use Newsletter;
+
+Newsletter::addMember('rincewind@discworld.com');
+```
+
 Let's unsubscribe someone:
 
 ```php

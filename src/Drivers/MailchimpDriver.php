@@ -76,6 +76,13 @@ class MailchimpDriver implements Driver
         return $response;
     }
 
+    public function addMember(string $email, array $options = [], string $listName = '')
+    {
+        return $this->subscribe($email, array_merge([
+            'status' => 'unsubscribed',
+        ], $options), $listName);
+    }
+
     /**
      * @param string $listName
      * @param array $parameters
@@ -116,7 +123,7 @@ class MailchimpDriver implements Driver
             return false;
         }
 
-        if (strtolower($response['email_address']) != strtolower($email)) {
+        if (strtolower($response['email_address']) !== strtolower($email)) {
             return false;
         }
 
@@ -137,7 +144,7 @@ class MailchimpDriver implements Driver
             return false;
         }
 
-        if ($response['status'] != 'subscribed') {
+        if ($response['status'] !== 'subscribed') {
             return false;
         }
 

@@ -24,7 +24,7 @@ class NewsletterServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Newsletter::class, function () {
             $driver = config('newsletter.driver', null);
-            if (is_null($driver) || $driver === 'log') {
+            if ($driver === null || $driver === 'log') {
                 return new NullDriver($driver === 'log');
             }
 
