@@ -40,6 +40,7 @@ class NewsletterTest extends TestCase
                 'list2' => ['id' => 456],
             ],
             'defaultList' => 'list1',
+            'connection_timeout' => 20,
         ]);
 
         $this->driver->client = $this->client;
