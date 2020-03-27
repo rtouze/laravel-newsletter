@@ -47,7 +47,7 @@ return [
     'mailjet' => [
         'key' => env('MJ_APIKEY_PUBLIC'),
         'secret' => env('MJ_APIKEY_PRIVATE'),
-        'connection_timeout' => (float)env('MJ_CONNECTION_TIMEOUT', '20'),
+        'connection_timeout' => env('MJ_CONNECTION_TIMEOUT'),
     ]
 
 ];
