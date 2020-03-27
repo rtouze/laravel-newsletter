@@ -21,6 +21,7 @@ class MailjetDriver implements Driver
     public function __construct(array $credentials, array $config)
     {
         $this->client = new Client($credentials['key'], $credentials['secret']);
+        $this->client->setConnectionTimeout(20);
         $this->lists = NewsletterListCollection::createFromConfig($config);
     }
 
