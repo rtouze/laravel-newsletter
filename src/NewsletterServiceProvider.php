@@ -38,6 +38,7 @@ class NewsletterServiceProvider extends ServiceProvider
                     $driver = new MailchimpDriver(config('newsletter.mailchimp'), $config);
                     break;
                 case 'mailjet':
+                    $config['connection_timeout'] = config('newsletter.mailjet.connection_timeout');
                     $driver = new MailjetDriver(config('newsletter.mailjet'), $config);
                     break;
             }
