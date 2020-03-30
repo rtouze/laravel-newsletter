@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/dansmaculotte/laravel-newsletter/compare/v1.1.0...v1.1.1) (2020-03-30)
+
+
+### Bug Fixes
+
+* increase connection timeout to avoid cUrl errors ([#3](https://github.com/dansmaculotte/laravel-newsletter/issues/3)) ([ccf6168](https://github.com/dansmaculotte/laravel-newsletter/commit/ccf61684117367de8a2777359de5544d825b4569))
+
 ## [1.1.0](https://github.com/dansmaculotte/laravel-newsletter/compare/v1.0.1...v1.1.0) (2020-03-24)
 
 
