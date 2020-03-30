@@ -22,7 +22,7 @@ class MailjetDriver implements Driver
     {
         $this->client = new Client($credentials['key'], $credentials['secret']);
         $connectionTimeout = $config['connection_timeout'];
-        if ($connectionTimeout > 0) {
+        if ($connectionTimeout) {
             $this->client->setConnectionTimeout($connectionTimeout);
         }
         $this->lists = NewsletterListCollection::createFromConfig($config);
