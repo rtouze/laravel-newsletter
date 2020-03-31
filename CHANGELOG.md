@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/dansmaculotte/laravel-newsletter/compare/v1.1.1...v1.1.2) (2020-03-31)
+
+
+### Bug Fixes
+
+* **mailjet:** cast listId to int when compared in isSubscribed method ([459024c](https://github.com/dansmaculotte/laravel-newsletter/commit/459024c1783f6a8a6661c8ba0997d41d1016ff68))
+
 ### [1.1.1](https://github.com/dansmaculotte/laravel-newsletter/compare/v1.1.0...v1.1.1) (2020-03-30)
 
 
