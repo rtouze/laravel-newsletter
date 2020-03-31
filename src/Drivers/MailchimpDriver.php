@@ -3,7 +3,6 @@
 namespace DansMaCulotte\Newsletter\Drivers;
 
 use DrewM\MailChimp\MailChimp;
-use Exception;
 use DansMaCulotte\Newsletter\Exceptions\ApiError;
 use DansMaCulotte\Newsletter\Exceptions\InvalidNewsletterList;
 use DansMaCulotte\Newsletter\NewsletterListCollection;
