@@ -136,6 +136,13 @@ In addition to this you can also check if a user is subscribed to your list:
 Newsletter::isSubscribed('lord.vetinari@discworld.com'); //returns a boolean
 ```
 
+### Handling errors
+
+If something went wrong you can get the last error with:
+```php
+Newsletter::getLastError();
+```
+
 ### Need something else?
 
 If you need more functionality you get an instance of the underlying Api with:

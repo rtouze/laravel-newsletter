@@ -189,6 +189,14 @@ class MailchimpDriver implements Driver
     }
 
     /**
+     * @return string|false
+     */
+    public function getLastError()
+    {
+        return $this->client->getLastError();
+    }
+
+    /**
      * @return MailChimp
      */
     public function getApi(): MailChimp
