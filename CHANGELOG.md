@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/dansmaculotte/laravel-newsletter/compare/v1.2.0...v1.2.1) (2020-04-01)
+
+
+### Bug Fixes
+
+* add getLastError phpDoc method ([e378989](https://github.com/dansmaculotte/laravel-newsletter/commit/e37898986bdbc113d04143b8d6aafede9855fd78))
+
 ## [1.2.0](https://github.com/dansmaculotte/laravel-newsletter/compare/v1.1.2...v1.2.0) (2020-04-01)
 
 
