@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/dansmaculotte/laravel-newsletter/compare/v1.2.1...v2.0.0) (2020-05-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support of laravel 5
+
+### Features
+
+* allow laravel 7 ([773f7e0](https://github.com/dansmaculotte/laravel-newsletter/commit/773f7e0))
+
 ### [1.2.1](https://github.com/dansmaculotte/laravel-newsletter/compare/v1.2.0...v1.2.1) (2020-04-01)
 
 
