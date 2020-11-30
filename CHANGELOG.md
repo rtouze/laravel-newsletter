@@ -9,6 +9,15 @@ All notable changes to this project will be documented in this file. See [standa
 
 * drop support of Illuminate/Support 6
 
+* update dependencies for Laravel 8 support ([624341d](https://github.com/dansmaculotte/laravel-newsletter/commit/624341d3d9cdb4615725e3b713dbb046bb198dec))
+
+## [3.0.0](https://github.com/dansmaculotte/laravel-newsletter/compare/v2.0.0...v3.0.0) (2020-11-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support of Illuminate/Support 6
+
 * update dependencies for Laravel 8 support ([3bec69a](https://github.com/dansmaculotte/laravel-newsletter/commit/3bec69a8fd0196be2dd981a788505c11e1aaa1cb))
 
 ## [2.0.0](https://github.com/dansmaculotte/laravel-newsletter/compare/v1.2.1...v2.0.0) (2020-05-06)
