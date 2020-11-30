@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/dansmaculotte/laravel-newsletter/compare/v2.0.0...v3.0.0) (2020-11-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support of Illuminate/Support 6
+
+* update dependencies for Laravel 8 support ([3bec69a](https://github.com/dansmaculotte/laravel-newsletter/commit/3bec69a8fd0196be2dd981a788505c11e1aaa1cb))
+
 ## [2.0.0](https://github.com/dansmaculotte/laravel-newsletter/compare/v1.2.1...v2.0.0) (2020-05-06)
 
 

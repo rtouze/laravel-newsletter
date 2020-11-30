@@ -1,7 +1,6 @@
 {
     "name": "dansmaculotte/laravel-newsletter",
     "description": "Manage newsletters in Laravel",
-    "version": "2.0.0",
     "keywords": [
         "laravel",
         "newsletter",
@@ -28,8 +27,8 @@
         }
     ],
     "require": {
-        "php": "^7.2",
-        "illuminate/support": "^6.0||^7.0"
+        "php": "^7.4",
+        "illuminate/support": "^7.0||^8.0"
     },
     "require-dev": {
         "mailjet/mailjet-apiv3-php": "^1.4",
