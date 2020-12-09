@@ -82,7 +82,7 @@ class MailjetDriver implements Driver
             throw ApiError::responseError($response->getReasonPhrase(), 'mailjet', $response->getStatus());
         }
 
-        $this->unsubscribe($email, $listName);
+        return $this->unsubscribe($email, $listName);
     }
 
     /**
