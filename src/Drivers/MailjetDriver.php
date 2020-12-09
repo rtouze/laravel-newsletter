@@ -38,7 +38,7 @@ class MailjetDriver implements Driver
 
         $body = [
             'Email' => $email,
-            'Action' => 'addnoforce',
+            'Action' => 'addforce',
         ];
 
         $body = array_merge($body, $options);
