@@ -177,7 +177,7 @@ class MailjetDriver implements Driver
         $contactLists = $response->getData();
 
         foreach ($contactLists as $list) {
-            if ($list['ListID'] === $listId && $list['IsUnsub'] !== true) {
+            if ((string)$list['ListID'] === $listId && $list['IsUnsub'] !== true) {
                 return true;
             }
         }
