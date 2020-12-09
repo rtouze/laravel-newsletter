@@ -75,9 +75,14 @@ class MailjetDriver implements Driver
      */
     public function addMember(string $email, array $options = [], string $listName = '')
     {
-        return $this->subscribe($email, array_merge([
-            'IsExcludedFromCampaigns' => true,
-        ], $options), $listName);
+        $response = $this->subscribe($email, $options, $listName);
+
+        if (!$response->success()) {
+            $this->lastError = $response->getData();
+            throw ApiError::responseError($response->getReasonPhrase(), 'mailjet', $response->getStatus());
+        }
+
+        $this->unsubscribe($email, $listName);
     }
 
     /**
