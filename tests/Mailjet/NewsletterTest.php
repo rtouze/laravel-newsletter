@@ -283,7 +283,7 @@ class NewsletterTest extends TestCase
         $response->shouldReceive('success')->andReturn(true);
         $response->shouldReceive('getData')->andReturn([
             [
-                'ListID' => '123',
+                'ListID' => 123,
                 'IsUnsub' => false
             ]
         ]);
