@@ -3,7 +3,6 @@
 namespace DansMaCulotte\Newsletter\Drivers;
 
 use DrewM\MailChimp\MailChimp;
-use Exception;
 use DansMaCulotte\Newsletter\Exceptions\ApiError;
 use DansMaCulotte\Newsletter\Exceptions\InvalidNewsletterList;
 use DansMaCulotte\Newsletter\NewsletterListCollection;
@@ -187,6 +186,14 @@ class MailchimpDriver implements Driver
         $response = $this->client->delete("lists/{$list->getId()}/members/{$this->getSubscriberHash($email)}");
 
         return $response;
+    }
+
+    /**
+     * @return string|false
+     */
+    public function getLastError()
+    {
+        return $this->client->getLastError();
     }
 
     /**

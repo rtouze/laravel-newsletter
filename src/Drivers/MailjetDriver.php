@@ -11,16 +11,22 @@ use Mailjet\Resources;
 
 class MailjetDriver implements Driver
 {
-
     /** @var Client */
     public $client;
 
     /** @var NewsletterListCollection */
     public $lists;
 
+    /** @var array */
+    private $lastError;
+
     public function __construct(array $credentials, array $config)
     {
         $this->client = new Client($credentials['key'], $credentials['secret']);
+        $connectionTimeout = $config['connection_timeout'];
+        if ($connectionTimeout) {
+            $this->client->setConnectionTimeout($connectionTimeout);
+        }
         $this->lists = NewsletterListCollection::createFromConfig($config);
     }
 
@@ -46,6 +52,7 @@ class MailjetDriver implements Driver
         $response = $this->client->post(Resources::$ContactslistManagecontact, ['id' => $list->getId(), 'body' => $body]);
 
         if (! $response->success()) {
+            $this->lastError = $response->getData();
             throw ApiError::responseError($response->getReasonPhrase(), 'mailjet', $response->getStatus());
         }
 
@@ -105,6 +112,7 @@ class MailjetDriver implements Driver
         $response = $this->client->get(Resources::$Contact, $body);
 
         if (! $response->success()) {
+            $this->lastError = $response->getData();
             throw ApiError::responseError($response->getReasonPhrase(), 'mailjet', $response->getStatus());
         }
 
@@ -122,6 +130,7 @@ class MailjetDriver implements Driver
         $response = $this->client->get(Resources::$Contact, ['id' => $email]);
 
         if (! $response->success()) {
+            $this->lastError = $response->getData();
             throw ApiError::responseError($response->getReasonPhrase(), 'mailjet', $response->getStatus());
         }
 
@@ -143,6 +152,7 @@ class MailjetDriver implements Driver
         $response = $this->client->get(Resources::$Contact, ['ContactsList' => $listId]);
 
         if (! $response->success()) {
+            $this->lastError = $response->getData();
             throw ApiError::responseError($response->getReasonPhrase(), 'mailjet', $response->getStatus());
         }
 
@@ -171,13 +181,14 @@ class MailjetDriver implements Driver
         $response = $this->client->get(Resources::$ContactGetcontactslists, ['id' => $email]);
 
         if (! $response->success()) {
+            $this->lastError = $response->getData();
             throw ApiError::responseError($response->getReasonPhrase(), 'mailjet', $response->getStatus());
         }
 
         $contactLists = $response->getData();
 
         foreach ($contactLists as $list) {
-            if ((string)$list['ListID'] === $listId && $list['IsUnsub'] !== true) {
+            if ($list['ListID'] === (int) $listId && $list['IsUnsub'] === false) {
                 return true;
             }
         }
@@ -204,6 +215,7 @@ class MailjetDriver implements Driver
         $response = $this->client->post(Resources::$ContactslistManagecontact, ['id' => $list->getId(), 'body' => $body]);
 
         if (! $response->success()) {
+            $this->lastError = $response->getData();
             throw ApiError::responseError($response->getReasonPhrase(), 'mailjet', $response->getStatus());
         }
 
@@ -234,10 +246,16 @@ class MailjetDriver implements Driver
         );
 
         if (! $response->success()) {
+            $this->lastError = $response->getData();
             throw ApiError::responseError($response->getReasonPhrase(), 'mailjet', $response->getStatus());
         }
 
         return $response;
+    }
+
+    public function getLastError()
+    {
+        return $this->lastError;
     }
 
     public function getApi()

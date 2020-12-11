@@ -1,7 +1,6 @@
 {
     "name": "dansmaculotte/laravel-newsletter",
     "description": "Manage newsletters in Laravel",
-    "version": "1.1.0",
     "keywords": [
         "laravel",
         "newsletter",
@@ -28,15 +27,15 @@
         }
     ],
     "require": {
-        "php": "^7.2",
-        "illuminate/support": "^5.8 || ^6.0"
+        "php": "^7.4",
+        "illuminate/support": "^7.0||^8.0"
     },
     "require-dev": {
         "mailjet/mailjet-apiv3-php": "^1.4",
         "drewm/mailchimp-api": "^2.4",
-        "orchestra/testbench": "^4.3",
-        "phpunit/phpunit": "^8.0",
-        "mockery/mockery": "^1.0"
+        "orchestra/testbench": "^4.3||^5.0",
+        "phpunit/phpunit": "^8.5||^9.1",
+        "mockery/mockery": "^1.3"
     },
     "autoload": {
         "psr-4": {

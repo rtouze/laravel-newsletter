@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool isSubscribed(string $email, string $listName = '')
  * @method static unsubscribe(string $email, string $listName = '')
  * @method static delete(string $email, string $listName = '')
+ * @method static getLastError()
  * @method static getApi()
  */
 class NewsletterFacade extends Facade

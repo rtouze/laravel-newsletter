@@ -136,6 +136,13 @@ In addition to this you can also check if a user is subscribed to your list:
 Newsletter::isSubscribed('lord.vetinari@discworld.com'); //returns a boolean
 ```
 
+### Handling errors
+
+If something went wrong you can get the last error with:
+```php
+Newsletter::getLastError();
+```
+
 ### Need something else?
 
 If you need more functionality you get an instance of the underlying Api with:
@@ -143,6 +150,15 @@ If you need more functionality you get an instance of the underlying Api with:
 ```php
 $api = Newsletter::getApi();
 ```
+
+### Mailjet notes
+
+Connection timeouts may occur when using mailjet, as described
+[here](https://github.com/mailjet/mailjet-apiv3-php/issues/157). You can
+configure the value you want with configuration key
+`mailjet.connection_timeout`, itself using environment variable
+`MJ_CONNECTION_TIMEOUT`.
+
 
 ## Testing
 

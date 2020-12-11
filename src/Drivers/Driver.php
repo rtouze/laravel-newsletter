@@ -24,5 +24,7 @@ interface Driver
 
     public function delete(string $email, string $listName = '');
 
+    public function getLastError();
+
     public function getApi();
 }

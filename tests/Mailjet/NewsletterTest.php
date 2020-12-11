@@ -40,6 +40,7 @@ class NewsletterTest extends TestCase
                 'list2' => ['id' => 456],
             ],
             'defaultList' => 'list1',
+            'connection_timeout' => 20,
         ]);
 
         $this->driver->client = $this->client;
@@ -73,8 +74,8 @@ class NewsletterTest extends TestCase
             Resources::$ContactslistManagecontact,[
                 'id' => '123',
                 'body' => [
-                    'Email' => "test@test.fr",
-                    'Action' => "addforce",
+                    'Email' => 'test@test.fr',
+                    'Action' => 'addforce',
                     'Name' => 'Martin',
                 ]
             ]
@@ -93,8 +94,8 @@ class NewsletterTest extends TestCase
             Resources::$ContactslistManagecontact,[
                 'id' => '123',
                 'body' => [
-                    'Email' => "test@test.fr",
-                    'Action' => "addforce",
+                    'Email' => 'test@test.fr',
+                    'Action' => 'addforce',
                     'Name' => 'Martin',
                 ]
             ]
@@ -113,8 +114,8 @@ class NewsletterTest extends TestCase
             Resources::$ContactslistManagecontact,[
                 'id' => '123',
                 'body' => [
-                    'Email' => "testtest.fr",
-                    'Action' => "addforce",
+                    'Email' => 'testtest.fr',
+                    'Action' => 'addforce',
                     'Name' => 'Martin',
                 ]
             ]
@@ -132,7 +133,7 @@ class NewsletterTest extends TestCase
         $this->client->shouldReceive('get')->withArgs([
             Resources::$Contact,
             [
-                'ContactsList' => "123"
+                'ContactsList' => '123'
             ]
         ])->andReturn($this->response);
 
@@ -147,7 +148,7 @@ class NewsletterTest extends TestCase
         $this->client->shouldReceive('get')->withArgs([
             Resources::$Contact,
             [
-                'ContactsList' => "123"
+                'ContactsList' => '123'
             ]
         ])->andReturn($this->response);
 
@@ -197,8 +198,8 @@ class NewsletterTest extends TestCase
             Resources::$ContactslistManagecontact,[
                 'id' => '123',
                 'body' => [
-                    'Email' => "test@test.fr",
-                    'Action' => "unsub",
+                    'Email' => 'test@test.fr',
+                    'Action' => 'unsub',
                 ]
             ]
 
@@ -215,8 +216,8 @@ class NewsletterTest extends TestCase
             Resources::$ContactslistManagecontact,[
                 'id' => '123',
                 'body' => [
-                    'Email' => "testtest.fr",
-                    'Action' => "unsub",
+                    'Email' => 'testtest.fr',
+                    'Action' => 'unsub',
                 ]
             ]
 
@@ -235,8 +236,8 @@ class NewsletterTest extends TestCase
             Resources::$ContactslistManagecontact,[
                 'id' => '123',
                 'body' => [
-                    'Email' => "test@test.fr",
-                    'Action' => "remove",
+                    'Email' => 'test@test.fr',
+                    'Action' => 'remove',
                 ]
             ]
 
@@ -254,8 +255,8 @@ class NewsletterTest extends TestCase
             Resources::$ContactslistManagecontact,[
                 'id' => '123',
                 'body' => [
-                    'Email' => "test@test.fr",
-                    'Action' => "remove",
+                    'Email' => 'test@test.fr',
+                    'Action' => 'remove',
                 ]
             ]
 
@@ -309,7 +310,7 @@ class NewsletterTest extends TestCase
         $response->shouldReceive('success')->andReturn(true);
         $response->shouldReceive('getData')->andReturn([
             [
-                'ListID' => '124',
+                'ListID' => 124,
                 'IsUnsub' => false
             ]
         ]);
