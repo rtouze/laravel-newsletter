@@ -75,7 +75,7 @@ class NewsletterTest extends TestCase
                 'id' => '123',
                 'body' => [
                     'Email' => 'test@test.fr',
-                    'Action' => 'addnoforce',
+                    'Action' => 'addforce',
                     'Name' => 'Martin',
                 ]
             ]
@@ -95,7 +95,7 @@ class NewsletterTest extends TestCase
                 'id' => '123',
                 'body' => [
                     'Email' => 'test@test.fr',
-                    'Action' => 'addnoforce',
+                    'Action' => 'addforce',
                     'Name' => 'Martin',
                 ]
             ]
@@ -115,7 +115,7 @@ class NewsletterTest extends TestCase
                 'id' => '123',
                 'body' => [
                     'Email' => 'testtest.fr',
-                    'Action' => 'addnoforce',
+                    'Action' => 'addforce',
                     'Name' => 'Martin',
                 ]
             ]
@@ -398,5 +398,35 @@ class NewsletterTest extends TestCase
 
         $this->expectExceptionObject(ApiError::responseError('Error', 'mailjet', 400));
         $this->newsletter->hasMember('test@test.fr');
+    }
+
+    /** @test */
+    public function it_can_add_member_to_a_list()
+    {
+        $this->response->shouldReceive('success')->andReturn(true);
+
+        $this->client->shouldReceive('post')->withArgs([
+            Resources::$ContactslistManagecontact,[
+                'id' => '123',
+                'body' => [
+                    'Email' => 'test@test.fr',
+                    'Action' => 'addforce',
+                ]
+            ]
+
+        ])->andReturn($this->response);
+
+        $this->client->shouldReceive('post')->withArgs([
+            Resources::$ContactslistManagecontact,[
+                'id' => '123',
+                'body' => [
+                    'Email' => 'test@test.fr',
+                    'Action' => 'unsub',
+                ]
+            ]
+
+        ])->andReturn($this->response);
+
+        $this->newsletter->addMember('test@test.fr');
     }
 }
